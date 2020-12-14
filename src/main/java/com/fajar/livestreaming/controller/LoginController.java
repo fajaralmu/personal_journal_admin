@@ -57,7 +57,7 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="/loginsuccess" )
 	public String loginsuccess (HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException {
 		 
-		return "redirect:/app/home";
+		return "redirect:/app/dashboard";
 	}
 	
 }

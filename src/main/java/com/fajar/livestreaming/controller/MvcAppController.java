@@ -24,29 +24,16 @@ public class MvcAppController extends BaseController{
 	public MvcAppController() {
 		log.info("-----------------Mvc App Controller------------------");
 	}
-
-	@RequestMapping(value = { "/main"})
-	@CustomRequestInfo(pageUrl = "pages/main-menu")
-	public String index(Model model,
-			HttpServletRequest request, HttpServletResponse response)  {
-		model.addAttribute("title", bindedValues.getApplicationHeaderLabel());
+ 
+	@RequestMapping(value = { "/dashboard"})
+	@CustomRequestInfo(pageUrl = "pages/app/dashboard", title = "Dashboard")
+	public String wallPage(Model model, HttpServletRequest request, HttpServletResponse response)  { 
 		return basePage;
 	}
-	  
-	@RequestMapping(value = { "/wallpage"})
-	@CustomRequestInfo(pageUrl = "pages/main-menu")
-	public String wallPage(Model model,
-			HttpServletRequest request, HttpServletResponse response)  {
-		model.addAttribute("title", "WALL PAGE");
+	@RequestMapping(value = { "/profile"})
+	@CustomRequestInfo(pageUrl = "pages/app/profile", title="Profile")
+	public String profile(Model model, HttpServletRequest request, HttpServletResponse response)  { 
 		return basePage;
 	}
-	@RequestMapping(value = { "/home"})
-	@CustomRequestInfo(pageUrl = "pages/main-menu")
-	public String home(Model model,
-			HttpServletRequest request, HttpServletResponse response)  {
-		model.addAttribute("title", "home");
-		return basePage;
-	}
-	 
 
 }

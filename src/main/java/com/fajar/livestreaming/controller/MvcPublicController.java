@@ -31,6 +31,12 @@ public class MvcPublicController extends BaseController{
 		model.addAttribute("title", bindedValues.getApplicationHeaderLabel());
 		return basePage;
 	}
+	@RequestMapping(value = { "/about"})
+	@CustomRequestInfo(pageUrl = "pages/public/about", title = "About")
+	public String about(Model model, HttpServletRequest request, HttpServletResponse response)  {
+		 
+		return basePage;
+	}
 	 
 	
 	

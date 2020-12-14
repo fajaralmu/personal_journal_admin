@@ -22,23 +22,25 @@ body {
 }
 
 @media screen and (max-width: 991px) {
-	.navbar-custom {
-		display: block;
-	}
-	.sidebar-custom {
+	 
+	#sidebar-wrapper {
 		display: none;
+	}
+	#page-conten {
+		padding-left: 0;
 	}
 }
 
 @media screen and (min-width: 992px) {
-	.navbar-custom {
-		display: none;
-	}
+	 
 	#navbar-top {
 		visibility: hidden;
 	}
-	.sidebar-custom {
+	#sidebar-wrapper {
 		display: block;
+	}
+	#page-content {
+		padding-left: 270px;
 	}
 }
 

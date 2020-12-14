@@ -6,15 +6,15 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-
-	<http pattern="/public/**" security="none" />
+ 
 	<http pattern="/res/**" security="none" />
  
 	<http auto-config="true" >
+		<intercept-url pattern="/public/**" access="permitAll" /> 
 		<intercept-url pattern="/app/**" 
 			access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<form-login login-page="/login.html"
-			default-target-url="/app/main"  username-parameter="username"
+			default-target-url="/app/dashboard"  username-parameter="username"
 			password-parameter="password" always-use-default-target="true"
 			authentication-failure-url="/login.html?error=true"
 			authentication-success-forward-url="/loginsuccess" />

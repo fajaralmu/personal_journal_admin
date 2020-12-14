@@ -10,12 +10,14 @@
 <meta http-equiv="Content-Type"
 	content="text/html; charset=windows-1256">
 <meta name="description" content="${applicationDescription }">
-<meta property="og:title" content="${applicationHeaderLabel }" >
-<meta property="og:url" content="https://realtime-videocall.herokuapp.com/" >
+<meta property="og:title" content="${applicationHeaderLabel }">
+<meta property="og:url"
+	content="https://realtime-videocall.herokuapp.com/">
 <meta property="og:description" content="${applicationDescription }">
 <meta property="og:site_name" content="${applicationHeaderLabel }">
-<meta property="og:image" itemprop="image" content="https://realtime-videocall.herokuapp.com/res/img/Flag_of_Indonesia_200.png" >
-<meta property="og:type" content="website" >
+<meta property="og:image" itemprop="image"
+	content="https://realtime-videocall.herokuapp.com/res/img/Flag_of_Indonesia_200.png">
+<meta property="og:type" content="website">
 
 <title>${title}</title>
 <link rel="icon" href="<c:url value="/res/img/javaEE.ico"></c:url >"
@@ -23,6 +25,8 @@
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/res/css/app.css?version=1"></c:url>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/res/css/sidebar.css?version=1"></c:url>" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/res/fa/css/all.css" />" />
 <link rel="stylesheet"
@@ -34,7 +38,7 @@
 <script src="<c:url value="/res/js/stomp.js"></c:url >"></script>
 <script src="<c:url value="/res/js/websocket-util.js"></c:url >"></script>
 <script src="<c:url value="/res/js/ajax.js?v=1"></c:url >"></script>
-<script src="<c:url value="/res/js/util.js?v=1"></c:url >"></script> 
+<script src="<c:url value="/res/js/util.js?v=1"></c:url >"></script>
 <script src="<c:url value="/res/js/dialog.js?v=1"></c:url >"></script>
 
 <script src="<c:url value="/res/fa/js/all.js?v=1"></c:url >"></script>
@@ -46,7 +50,7 @@
 <c:forEach var="scriptPath" items="${additionalScriptPaths }">
 	<script
 		src="<c:url value="/res/js/pages/${scriptPath.value }.js?v=1"></c:url >"></script>
-</c:forEach> 
+</c:forEach>
 </head>
 <body>
 	<div id="progress-bar-wrapper" onclick="hide('progress-bar-wrapper');"
@@ -57,20 +61,21 @@
 				class="progress-bar progress-bar-striped bg-info" role="progressbar"
 				aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
-	</div> 
+	</div>
 	<div id="loading-div"></div>
 	<jsp:include page="include/headerv2.jsp"></jsp:include>
-	<div class="container-fluid" style="min-height: 80vh">
+	 
+		<jsp:include page="include/sidebarv2.jsp"></jsp:include>
+	 
+	<div id="page-content" class="container-fluid" style="min-height: 80vh">
 		<div class="row">
-			<div class="col col-md-2 sidebar-custom">
-				<jsp:include page="include/sidebar.jsp"></jsp:include>
-			</div>
-			<div class="col">
-				<jsp:include page="${pageUrl == null? 'error/notfound': pageUrl}.jsp"></jsp:include>
+			<div class="col-lg-12">
+				<jsp:include
+					page="${pageUrl == null? 'error/notfound': pageUrl}.jsp"></jsp:include>
 			</div>
 		</div>
-		
-	</div> 
+	</div>
+
 	<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>

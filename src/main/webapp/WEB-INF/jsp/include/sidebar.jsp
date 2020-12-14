@@ -11,7 +11,8 @@
 	<div>
 		<c:if test="${isAuthenticated==true }">
 			<div style="text-align: center; padding-top: 10px; padding-bottom: 10px">
-				<h4>Welcome, ${userPrincipal.getUsername()}</h4>
+				<h3><i class="fas fa-user-circle"></i></h3>
+				<h4>${userPrincipal.getUsername()}</h4>
 			</div>
 		</c:if>
 		

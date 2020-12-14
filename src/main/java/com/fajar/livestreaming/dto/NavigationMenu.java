@@ -20,7 +20,7 @@ public class NavigationMenu implements Serializable {
 	 */
 	private static final long serialVersionUID = 5269567011649796790L;
 	private static final String AUTH_PREFIX = "/app/";
-	private static final String PUBLIC_PREFIX = "/app/";
+	private static final String PUBLIC_PREFIX = "/public/";
 	private String url;
 	private boolean authenticated;
 	private String iconClassName;
@@ -49,7 +49,7 @@ public class NavigationMenu implements Serializable {
 		menus.add(publicMenu("main", "Main"));
 		menus.add(publicMenu("about", "About"));
 		
-		menus.add(authenticatedMenu("home", "Home"));
+//		menus.add(authenticatedMenu("home", "Home"));
 		menus.add(authenticatedMenu("dashboard", "Dashboard"));
 		menus.add(authenticatedMenu("profile", "Profile"));
 		return menus ;
