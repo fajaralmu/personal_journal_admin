@@ -75,7 +75,9 @@
 			</div>
 		</div>
 	</div>
-
+	<form>
+		<input type="hidden" value="${token }"/>
+	</form>
 	<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>

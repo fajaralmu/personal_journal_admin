@@ -1,6 +1,7 @@
 package com.fajar.livestreaming.config.security;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -59,6 +60,15 @@ public class UserDetailDomain implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		UserDetailDomain user = (UserDetailDomain) o;
+		return Objects.equals( getUserDetails().getId(), user.getUserDetails().getId());
 	}
 
 }

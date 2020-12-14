@@ -20,6 +20,7 @@ import com.fajar.livestreaming.dto.NavigationMenu;
 import com.fajar.livestreaming.entities.User;
 import com.fajar.livestreaming.service.BindedValues;
 import com.fajar.livestreaming.service.SessionValidationService;
+import com.fajar.livestreaming.service.UserSessionService;
 import com.fajar.livestreaming.util.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,8 @@ public class BaseController {
 	protected String basePage = "BASE_PAGE";
 	@Autowired
 	private SessionValidationService sessionValidationService;
-	 
+	@Autowired
+	private UserSessionService userSessionService;
 	 
 	@Autowired
 	protected BindedValues bindedValues;
@@ -100,7 +102,7 @@ public class BaseController {
 			}
 			displayedMenus.add(navigationMenu);
 		}
-		log.info("displayedMenus : {}", displayedMenus.size());
+//		log.info("displayedMenus : {}", displayedMenus.size());
 		return displayedMenus ;
 	}
 
@@ -111,6 +113,11 @@ public class BaseController {
 		int port = request.getServerPort();
 
 		return remoteAddress + ":" + port;
+	}
+	
+	@ModelAttribute("token")
+	public String token() {
+		return userSessionService.generateJwt();
 	}
 
 	protected static void setTitle(Model model, String title) {

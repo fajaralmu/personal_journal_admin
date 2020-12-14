@@ -15,18 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 public class SessionValidationService {
 
 	public boolean validatePrinciple(Object principal) {
-		log.info("principal=====> {}", principal);
+//		log.info("principal=====> {}", principal);
 		 
 		if (principal instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) principal;
 			if (usernamePasswordAuthenticationToken.getPrincipal() instanceof UserDetailDomain == false) {
-				log.info("usernamePasswordAuthenticationToken.getPrincipal() is not instance of UserDetailDomain");
+				log.error("usernamePasswordAuthenticationToken.getPrincipal() is not instance of UserDetailDomain");
 				return false;
 			}
 			//throw new IllegalArgumentException("Principal can not be null!");
 			return true;
 		}
-		log.info("Principal is not instance of UsernamePasswordAuthenticationToken");
+		log.error("Principal is not instance of UsernamePasswordAuthenticationToken");
 		return false;
 	}
 	public User getLoggedUser(HttpServletRequest request) {
