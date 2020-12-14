@@ -28,6 +28,7 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		 <input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />
+		<input name="transport_type" type="hidden" value="web">
 	</form>
  
 </div>

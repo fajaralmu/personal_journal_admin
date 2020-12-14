@@ -113,13 +113,7 @@ public class BaseController {
 		int port = request.getServerPort();
 
 		return remoteAddress + ":" + port;
-	}
-	
-	@ModelAttribute("token")
-	public String token() {
-		return userSessionService.generateJwt();
-	}
-
+	} 
 	protected static void setTitle(Model model, String title) {
 		model.addAttribute(MODEL_ATTR_TITLE, title);
 	}

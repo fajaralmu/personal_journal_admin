@@ -3,6 +3,7 @@ package com.fajar.livestreaming.controller;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,14 +67,13 @@ public class LoginController extends BaseController {
 		return "redirect:/app/dashboard";
 	}
 	
-	private Map<String, String> extractResponseHeader(HttpServletResponse httpResponse) {
+	public static Map<String, String> extractResponseHeader(HttpServletResponse httpResponse) {
 		log.info("==========extractResponseHeader {}===========");
 		Map<String, String> headers = new HashMap<>();
 		Collection<String> headerNames = httpResponse.getHeaderNames();
 		if (headerNames != null) {
 			for(String name:headerNames) {				
 				String value = httpResponse.getHeader(name);
-				 
 				headers.put(name, value);
 				log.info("{}:{}", name, value);
 			}
@@ -81,8 +81,10 @@ public class LoginController extends BaseController {
 		log.info("===============");
 		return headers;
 	}
-	private Map<String, String> extractRequestHeader(HttpServletRequest httpRequest) {
+	public static Map<String, String> extractRequestHeader(HttpServletRequest httpRequest) {
 		log.info("==========extractRequestHeader {}===========", httpRequest.getRequestURI());
+		log.info("method: {}", httpRequest.getMethod());
+		log.info("__header__");
 		Map<String, String> headers = new HashMap<>();
 		Enumeration<String> headerNames = httpRequest.getHeaderNames();
 		if (headerNames != null) {
@@ -91,9 +93,19 @@ public class LoginController extends BaseController {
 				String value = httpRequest.getHeader(name);
 				 
 				headers.put(name, value);
-				log.info("{}:{}", name, value);
+				log.info("#HEADER {}:{}", name, value);
 			}
 		}
+		
+		log.info("__parameters__");
+		Enumeration<String> parameterNames = httpRequest.getParameterNames();
+		while(parameterNames.hasMoreElements()) {
+			try {
+				String name = parameterNames.nextElement();
+				log.info("#PARAM {}:{}", name, httpRequest.getParameter(name));
+			}catch (Exception e) { }
+		}
+		
 		log.info("===============");
 		return headers;
 	}

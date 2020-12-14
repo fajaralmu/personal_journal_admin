@@ -85,6 +85,7 @@
 		</property>
 
 	</bean>
+	<bean id="jwtUtils" class="com.fajar.livestreaming.config.security.JWTUtils" />
 	
 	<import resource="security.xml"/>
  

@@ -76,9 +76,7 @@
 			</div>
 		</div>
 	</div>
-	<form>
-		<input id="jwt_token" type="hidden" value="${token }"/>
-	</form>
+	 
 	<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
 </html>

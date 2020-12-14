@@ -4,7 +4,8 @@
 <html>
 <head>
 <title>Redirecting</title>
- 
+ <meta http-equiv="refresh"
+   content="0; url=<c:url value="/login.html"/>">
 </head>
 <body>
 <p>Welcome</p>
