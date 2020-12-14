@@ -19,6 +19,7 @@ import com.fajar.livestreaming.dto.KeyValue;
 import com.fajar.livestreaming.dto.NavigationMenu;
 import com.fajar.livestreaming.entities.User;
 import com.fajar.livestreaming.service.BindedValues;
+import com.fajar.livestreaming.service.SessionValidationService;
 import com.fajar.livestreaming.util.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,8 @@ public class BaseController {
 	private static final String MODEL_ATTR_PAGE_URL = "pageUrl";
 	
 	protected String basePage = "BASE_PAGE";
-	
+	@Autowired
+	private SessionValidationService sessionValidationService;
 	 
 	 
 	@Autowired
@@ -79,19 +81,11 @@ public class BaseController {
 	}
 	@ModelAttribute("loggedUser")
 	public User loggedUser(HttpServletRequest request) {
-		if (validatePrinciple(request.getUserPrincipal()) == false) {
-			return null;
-		}
-		return ((UserDetailDomain) getUserPrincipal(request)).getUserDetails();
-	}
-	
+		return sessionValidationService.getLoggedUser(request);
+	}	
 	@ModelAttribute("userPrincipal")
 	public Object getUserPrincipal(HttpServletRequest request) {
-		boolean validated = validatePrinciple(request.getUserPrincipal());
-		if (validated) {
-			return ((UsernamePasswordAuthenticationToken)request.getUserPrincipal()).getPrincipal();
-		}
-		return null;
+		return sessionValidationService.getUserPrincipal(request);
 	}
 	
 	@ModelAttribute("navigationMenus")
@@ -128,19 +122,7 @@ public class BaseController {
 	}
 	
 	protected boolean validatePrinciple(Object principal) {
-		log.info("principal=====> {}", principal);
-		 
-		if (principal instanceof UsernamePasswordAuthenticationToken) {
-			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) principal;
-			if (usernamePasswordAuthenticationToken.getPrincipal() instanceof UserDetailDomain == false) {
-				log.info("usernamePasswordAuthenticationToken.getPrincipal() is not instance of UserDetailDomain");
-				return false;
-			}
-			//throw new IllegalArgumentException("Principal can not be null!");
-			return true;
-		}
-		log.info("Principal is not instance of UsernamePasswordAuthenticationToken");
-		return false;
+		return sessionValidationService.validatePrinciple(principal);
 	}
 	
 	

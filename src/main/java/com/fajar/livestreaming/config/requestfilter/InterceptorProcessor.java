@@ -20,6 +20,7 @@ import com.fajar.livestreaming.annotation.Authenticated;
 import com.fajar.livestreaming.annotation.CustomRequestInfo;
 import com.fajar.livestreaming.controller.BaseController;
 import com.fajar.livestreaming.dto.WebResponse;
+import com.fajar.livestreaming.service.SessionValidationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,8 @@ public class InterceptorProcessor {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private ApplicationContext appContext;
+	@Autowired
+	private SessionValidationService sessionValidationService;
 
 	public InterceptorProcessor() {
 
@@ -81,14 +84,20 @@ public class InterceptorProcessor {
 
 		log.info("intercept webpage handler: {}", request.getRequestURI());
 		boolean authenticationRequired = getAuthenticationAnnotation(handlerMethod) != null;
+		boolean authenticated = hasSessionToAccessWebPage(request);
 
 		log.info("URI: {} requires authentication: {}", request.getRequestURI(), authenticationRequired);
-
+		if (authenticated && request.getRequestURI().endsWith("/login.html")) {
+			response.setStatus(HttpStatus.FOUND.value());
+			response.setHeader("location", request.getContextPath() + "/app/dashboard");
+//			BaseController.sendRedirectLogin(request, response);
+			return false;
+		}
 		if (authenticationRequired) {
-			if (!hasSessionToAccessWebPage(request)) {
+			if (!authenticated) {
 				log.info("URI: {} not authenticated, will redirect to login page", request.getRequestURI());
 				response.setStatus(HttpStatus.FOUND.value());
-				response.setHeader("location", request.getContextPath() + "/app/");
+				response.setHeader("location", request.getContextPath() + "/public/main");
 //				BaseController.sendRedirectLogin(request, response);
 				return false;
 			}
@@ -158,8 +167,7 @@ public class InterceptorProcessor {
 //	}
 //
 	private boolean hasSessionToAccessWebPage(HttpServletRequest request) {
-		return true;
-//				userSessionService.getRegisteredRequest(request)!=null;
+		return sessionValidationService.validatePrinciple(request.getUserPrincipal());
 	}
 
 	//// https://stackoverflow.com/questions/45595203/how-i-get-the-handlermethod-matchs-a-httpservletrequest-in-a-filter

@@ -25,9 +25,7 @@ public class MyHandlerInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		if (request.getMethod().toLowerCase().equals("get")) {
-			return true;
-		}
+		 
 		log.info("[preHandle][" + request + "]" + "[" + request.getMethod() + "]");
 		
 		if (request.getMethod().toLowerCase().equals("options")) {
