@@ -1,5 +1,10 @@
 package com.fajar.livestreaming.controller;
 
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,8 +61,40 @@ public class LoginController extends BaseController {
     }
 	@RequestMapping(value="/loginsuccess" )
 	public String loginsuccess (HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException {
-		 
+		extractRequestHeader(request);
+		extractResponseHeader(response);
 		return "redirect:/app/dashboard";
 	}
 	
+	private Map<String, String> extractResponseHeader(HttpServletResponse httpResponse) {
+		log.info("==========extractResponseHeader {}===========");
+		Map<String, String> headers = new HashMap<>();
+		Collection<String> headerNames = httpResponse.getHeaderNames();
+		if (headerNames != null) {
+			for(String name:headerNames) {				
+				String value = httpResponse.getHeader(name);
+				 
+				headers.put(name, value);
+				log.info("{}:{}", name, value);
+			}
+		}
+		log.info("===============");
+		return headers;
+	}
+	private Map<String, String> extractRequestHeader(HttpServletRequest httpRequest) {
+		log.info("==========extractRequestHeader {}===========", httpRequest.getRequestURI());
+		Map<String, String> headers = new HashMap<>();
+		Enumeration<String> headerNames = httpRequest.getHeaderNames();
+		if (headerNames != null) {
+			while (headerNames.hasMoreElements()) {
+				String name = headerNames.nextElement();
+				String value = httpRequest.getHeader(name);
+				 
+				headers.put(name, value);
+				log.info("{}:{}", name, value);
+			}
+		}
+		log.info("===============");
+		return headers;
+	}
 }

@@ -33,6 +33,7 @@
 	href="<c:url value="/res/css/bootstrap/bootstrap.min.css" />" />
 <script src="<c:url value="/res/js/jquery-3.3.1.slim.min.js" />"></script>
 <script src="<c:url value="/res/js/popper.min.js" />"></script>
+<script src="<c:url value="/res/js/axios.min.js" />"></script>
 <script src="<c:url value="/res/js/bootstrap/bootstrap.min.js"  />"></script>
 <script src="<c:url value="/res/js/sockjs-0.3.2.min.js"></c:url >"></script>
 <script src="<c:url value="/res/js/stomp.js"></c:url >"></script>
@@ -76,7 +77,7 @@
 		</div>
 	</div>
 	<form>
-		<input type="hidden" value="${token }"/>
+		<input id="jwt_token" type="hidden" value="${token }"/>
 	</form>
 	<jsp:include page="include/foot.jsp"></jsp:include>
 </body>
